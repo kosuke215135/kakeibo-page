@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>家計簿アプリ</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>家計簿アプリ</h1>
+  </header>
+
+  <main>
+    <!-- データ登録フォーム -->
+    <section id="entry-section">
+      <h2>収支を登録する</h2>
+      <form id="entry-form">
+        <div>
+          <label for="date">日付</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+        <div>
+          <label for="type">種別</label>
+          <select id="type" name="type" required>
+            <option value="expense" selected>支出</option>
+            <option value="income">収入</option>
+          </select>
+        </div>
+        <div>
+          <label for="item">品目</label>
+          <input type="text" id="item" name="item" placeholder="例：食費、給与" required>
+        </div>
+        <div>
+          <label for="amount">金額（円）</label>
+          <input type="number" id="amount" name="amount" min="0" step="1" placeholder="例：1000" required>
+        </div>
+        <div>
+          <button type="submit" id="add-button">追加</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 合計金額 -->
+    <section id="total-section">
+      <h2>収支合計（収入 − 支出）</h2>
+      <p><output id="total-amount">0</output> 円</p>
+    </section>
+
+    <!-- 登録データ一覧 -->
+    <section id="list-section">
+      <h2>収支一覧</h2>
+      <table id="entry-list">
+        <thead>
+          <tr>
+            <th scope="col">日付</th>
+            <th scope="col">種別</th>
+            <th scope="col">品目</th>
+            <th scope="col">金額（円）</th>
+          </tr>
+        </thead>
+        <tbody id="entry-list-body">
+          <!-- 登録したデータがここに表示されます -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
