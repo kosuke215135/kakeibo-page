@@ -1,0 +1,243 @@
+/* ==========================================================
+   家計簿アプリ スタイルシート
+   基調色：白 + 淡いブルー（業務用の落ち着いたトーン）
+   ========================================================== */
+
+/* ---------- 色・サイズの共通設定 ---------- */
+:root {
+  --color-bg: #f3f7fb;          /* ページ背景（ごく淡いブルー） */
+  --color-surface: #ffffff;     /* カード背景 */
+  --color-primary: #3b6ea5;     /* メインのブルー */
+  --color-primary-dark: #2d5785;/* ボタンのホバー時 */
+  --color-primary-light: #e6eef7;/* 表の見出しなど */
+  --color-border: #d3dfeb;      /* 枠線 */
+  --color-text: #2b3440;        /* 本文 */
+  --color-text-muted: #64707d;  /* 補足テキスト */
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(30, 60, 100, 0.08);
+}
+
+/* ---------- 基本 ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+    "Yu Gothic UI", Meiryo, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ---------- ヘッダー ---------- */
+header {
+  background-color: var(--color-surface);
+  border-bottom: 3px solid var(--color-primary);
+  padding: 16px 32px;
+}
+
+header h1 {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+/* ---------- レイアウト（左：入力 / 右：表示） ---------- */
+main {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  grid-template-areas:
+    "entry total"
+    "entry list";
+  grid-template-rows: auto 1fr;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 0 32px;
+  align-items: start;
+}
+
+#entry-section { grid-area: entry; }
+#total-section { grid-area: total; }
+#list-section  { grid-area: list; }
+
+/* ---------- カード共通 ---------- */
+section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 28px;
+}
+
+section h2 {
+  margin: 0 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-primary);
+  font-size: 1.1rem;
+}
+
+/* ---------- 入力フォーム ---------- */
+#entry-section {
+  position: sticky;   /* 一覧が長くなってもフォームが見えるように */
+  top: 24px;
+}
+
+#entry-form > div {
+  margin-bottom: 20px;
+}
+
+#entry-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+#entry-form input,
+#entry-form select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background-color: #fbfdff;
+  color: var(--color-text);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+#entry-form input::placeholder {
+  color: #a3adb8;
+}
+
+#entry-form input:focus,
+#entry-form select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(59, 110, 165, 0.2);
+  background-color: var(--color-surface);
+}
+
+/* 種別（収入 / 支出）のプルダウン */
+#entry-form select {
+  appearance: none;   /* ブラウザ標準の矢印を消して、見た目をそろえる */
+  padding-right: 40px;/* 矢印と文字が重ならないように */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%233b6ea5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+
+#entry-form select:hover {
+  border-color: var(--color-primary);
+}
+
+/* 追加ボタン */
+#add-button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+#add-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+#add-button:focus-visible {
+  outline: 3px solid rgba(59, 110, 165, 0.4);
+  outline-offset: 2px;
+}
+
+/* ---------- 合計金額 ---------- */
+#total-section {
+  background-color: var(--color-primary-light);
+  border-color: #c2d4e8;
+}
+
+#total-section h2 {
+  border-bottom-color: #c2d4e8;
+}
+
+#total-section p {
+  margin: 0;
+  text-align: right;
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+}
+
+#total-amount {
+  margin-right: 4px;
+  color: var(--color-primary-dark);
+  font-size: 2.2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 一覧表 ---------- */
+#entry-list {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+#entry-list th,
+#entry-list td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+#entry-list thead th {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+/* 金額列は右寄せで桁をそろえる */
+#entry-list th:last-child,
+#entry-list td:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#entry-list tbody tr:nth-child(even) {
+  background-color: #f8fbfe;
+}
+
+#entry-list tbody tr:hover {
+  background-color: #eef4fa;
+}
+
+/* ---------- 画面幅が狭いとき（縦1列に） ---------- */
+@media (max-width: 800px) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "entry"
+      "total"
+      "list";
+    padding: 0 16px;
+  }
+
+  #entry-section {
+    position: static;
+  }
+}
